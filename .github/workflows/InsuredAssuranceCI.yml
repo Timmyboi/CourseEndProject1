@@ -1,20 +1,36 @@
 name: InsuredAssurance CI Pipeline
 
-on: 
+on:
   push:
-    branches: 
-      - '*'
-  pull_request: 
-    branches: 
-      - '*'
-  workflow_dispatch: 
-  
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3 # Action to clone the repository to the runner
 
-      
+    steps:
+
+    # STEP 1: Checkout Repository
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    # STEP 2: Setup Java
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    # STEP 3: Setup Maven
+    - name: Setup Maven Action
+      run: mvn -version
+
+    # STEP 4: Build/Test with Maven
+    - name: Test with Maven
+      run: mvn clean test
+
+    # STEP 5: Trigger Jenkins
+    - name: Connect to Lab and Trigger Jenkins Job
+      run: |
+        curl -X POST "http://172.22.208.73:8080/job/InsuredAssured/build?token=50115ca3611ea2099c45983de1cf1abf"
