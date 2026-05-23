@@ -28,4 +28,4 @@ jobs:
 
     - name: Connect to Lab and Trigger Jenkins Job
       run: |
-        curl -v -X POST "http://172.22.208.73:8080/job/InsuredAssurance/build?token=50115ca3611ea2099c45983de1cf1abf"
+        curl -v -X POST "https://grating-dispersed-glider.ngrok-free.dev/job/InsuredAssurance/build?token=50115ca3611ea2099c45983de1cf1abf"
