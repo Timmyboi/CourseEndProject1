@@ -37,4 +37,4 @@ jobs:
     # STEP 5: Trigger Jenkins
     - name: Connect to Lab and Trigger Jenkins Job
       run: |
-        curl -X POST "http://172.22.208.73:8080/job/InsuredAssured/build?token=50115ca3611ea2099c45983de1cf1abf"
+        curl -X POST "http://172.22.208.73:8080/job/InsuredAssurance/build?token=50115ca3611ea2099c45983de1cf1abf"
