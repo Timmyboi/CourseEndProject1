@@ -28,5 +28,4 @@ jobs:
 
     - name: Connect to Lab and Trigger Jenkins Job
       run: |
-        curl -X POST "https://grating-dispersed-glider.ngrok-free.dev/job/InsuredAssurance/build" \ 
-        --user "timkem1122:REMOVED_JENKINS_CREDENTIAL"
+        curl -X POST "https://grating-dispersed-glider.ngrok-free.dev/job/InsuredAssurance/build" \ --user "timkem1122:REMOVED_JENKINS_CREDENTIAL"
