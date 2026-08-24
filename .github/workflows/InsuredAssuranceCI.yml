@@ -10,22 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
 
-    - name: Check out repository code
-      uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
 
-    - name: Set up JDK
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '21'
+      - name: Verify Java and Maven
+        run: |
+          java -version
+          mvn -version
 
-    - name: Setup Maven Action
-      run: mvn -version
+      - name: Build and test with Maven
+        run: mvn clean test
 
-    - name: Test with Maven
-      run: mvn clean test
-
-    - name: Connect to Lab and Trigger Jenkins Job
-      run: |
-        curl -X POST "https://grating-dispersed-glider.ngrok-free.dev/job/InsuredAssurance/build" \ --user "timkem1122:REMOVED_JENKINS_CREDENTIAL"
+      - name: Trigger Jenkins Job
+        env:
+          JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
+        run: |
+          curl --fail --silent --show-error \
+            --user "timkem1122:${JENKINS_API_TOKEN}" \
+            -X POST \
+            "https://grating-dispersed-glider.ngrok-free.dev/job/InsuredAssurance/build"
